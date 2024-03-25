@@ -4,7 +4,9 @@ public class Product {
 
     private String title;
     private int price;
-    private Double discountPercentage, rating;
+    private Double discountPercentage;
+    private Double rating;
+
 
     public Product(String title, int price, Double discountPercentage, Double rating){
         this.title = title;

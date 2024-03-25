@@ -1,6 +1,8 @@
 package com.abler.recyclerview;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,14 +33,21 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         return new ProductHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ProductHolder holder, int position) {
         Product product = productList.get(position);
 
+        Log.d("ProductAdapter", "Title: " + product.getTitle());
+        Log.d("ProductAdapter", "Rating: " + product.getRating());
+        Log.d("ProductAdapter", "Price: " + product.getPrice());
+        Log.d("ProductAdapter", "Discount Percentage: " + product.getDiscountPercentage());
+
+
         holder.title.setText(product.getTitle());
-        holder.rating.setText(product.getRating().toString());
-        holder.price.setText(product.getPrice());
-        holder.discountPercentage.setText(product.getDiscountPercentage().toString());
+        holder.rating.setText(String.valueOf(product.getRating()));
+        holder.price.setText(String.valueOf(product.getPrice()));
+        holder.discountPercentage.setText(String.valueOf(product.getDiscountPercentage()));
     }
 
     @Override
