@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.abler.recyclerview.Product;
@@ -16,6 +17,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,15 +48,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fetchProducts() {
-        String url = "https://dummyjson.com/products?fbclid=IwAR0ZQuqRqofVQffA_lE4Xrb1keEujIkEsRYoDtSs1YQIr_1u_Y5HLp6AeAU";
+        String url = "https://dummyjson.com/products";
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
+                JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(JSONObject response) {
                         try {
-                            for (int i = 0; i < response.length(); i++) {
-                                JSONObject productJson = response.getJSONObject(i);
+                            Log.d("lol", "onResponse: " + response.toString());
+                            JSONArray products = response.getJSONArray("products");
+
+                            for (int i = 0; i < products.length(); i++) {
+                                JSONObject productJson = products.getJSONObject(i);
                                 String title = productJson.getString("title");
                                 int price = productJson.getInt("price");
                                 double discountPercentage = productJson.getDouble("discountPercentage");
