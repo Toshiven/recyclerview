@@ -2,6 +2,8 @@ package com.abler.recyclerview;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -48,6 +51,23 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         holder.rating.setText(String.valueOf(product.getRating()));
         holder.price.setText(String.valueOf(product.getPrice()));
         holder.discountPercentage.setText(String.valueOf(product.getDiscountPercentage()));
+
+        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context ,  DetailActivity.class);
+
+                Bundle bundle = new Bundle();
+                bundle.putString("title" , product.getTitle());
+                bundle.putString("rating" , String.valueOf(product.getRating()));
+                bundle.putString("price" , String.valueOf(product.getPrice()));
+                bundle.putString("discount" , String.valueOf(product.getDiscountPercentage()));
+
+                intent.putExtras(bundle);
+
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -59,6 +79,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
 
 
         TextView  title,  price, discountPercentage, rating;
+        ConstraintLayout constraintLayout;
 
         public ProductHolder(@NonNull View itemView) {
             super(itemView);
@@ -67,6 +88,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
             rating = itemView.findViewById(R.id.rating_tv);
             price = itemView.findViewById(R.id.price_tv);
             discountPercentage = itemView.findViewById(R.id.discount_tv);
+            constraintLayout = itemView.findViewById(R.id.main_layout);
         }
     }
 }
