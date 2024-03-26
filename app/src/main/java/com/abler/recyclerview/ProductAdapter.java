@@ -41,16 +41,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
     public void onBindViewHolder(@NonNull ProductHolder holder, int position) {
         Product product = productList.get(position);
 
-        Log.d("ProductAdapter", "Title: " + product.getTitle());
-        Log.d("ProductAdapter", "Rating: " + product.getRating());
-        Log.d("ProductAdapter", "Price: " + product.getPrice());
-        Log.d("ProductAdapter", "Discount Percentage: " + product.getDiscountPercentage());
-
-
         holder.title.setText(product.getTitle());
         holder.rating.setText(String.valueOf(product.getRating()));
         holder.price.setText(String.valueOf(product.getPrice()));
         holder.discountPercentage.setText(String.valueOf(product.getDiscountPercentage()));
+        holder.description.setText(R.id.getDescription);
 
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +73,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
     public class ProductHolder extends RecyclerView.ViewHolder{
 
 
-        TextView  title,  price, discountPercentage, rating;
+        TextView  title,  price, discountPercentage, rating, description;
         ConstraintLayout constraintLayout;
 
         public ProductHolder(@NonNull View itemView) {
